@@ -28,6 +28,8 @@ const isValid = (s) => {
     
 };
 
+------------            ------------
+
 const isValid = (s) => {
     
   const map = {"(": ")", "{": "}", "[": "]"}
@@ -41,6 +43,65 @@ const isValid = (s) => {
     }
     return stack.length === 0 
 };
+
+------------            ------------
+
+const isValid = (s) => {
+    
+ let stack = new Stack();
+    
+    for(let char of s) {
+        if(char === '{' || char === '[' || char === '(' ) {
+            stack.push(char);
+        } else if(!stack.isEmpty() && char === '}' && stack.peek() === '{') {
+            stack.pop();
+        }  else if(!stack.isEmpty() && char === ')' && stack.peek() === '(') {
+            stack.pop();
+        }  else if(!stack.isEmpty() && char === ']' && stack.peek() === '[') {
+            stack.pop();
+        } else {
+            return false
+        }
+    }
+    
+    return stack.isEmpty()
+    
+};
+
+class Stack {
+    constructor() {
+        this.count = 0;
+        this.storage = {}
+    }
+    
+    push(val) {
+        this.storage[this.count] = val;
+        this.count++
+    }
+    
+    getCount() {
+        return this.count;
+    }
+    
+    pop() {
+        if(this.count === 0) {
+            return undefined;
+        }
+        this.count--;
+        let result = this.storage[this.count];
+        delete this.storage[this.count];
+        return result;
+    }
+    
+    peek() {
+        let result = this.storage[this.count - 1];
+        return result;
+    }
+    
+    isEmpty() {
+        return this.count === 0;
+    }
+}
 
 */
 }
